@@ -1,0 +1,40 @@
+.header {
+  background-color: var(--color-white);
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: 24px 0;
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.link {
+  display: block;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20px;
+  color: var(--color-text);
+  transition: color 0.2s ease;
+}
+
+.link:hover {
+  color: var(--color-accent);
+}
+
+.active {
+  color: var(--color-accent);
+  text-decoration: underline;
+}
