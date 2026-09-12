@@ -1,0 +1,29 @@
+.catalog {
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: 84px 0 104px;
+}
+
+.loadMore {
+  display: block;
+  width: 156px;
+  margin: 48px auto 0;
+  padding: 12px 0;
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius-md);
+  background-color: transparent;
+  color: var(--color-text);
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+  transition: color 0.2s ease;
+}
+
+.loadMore:hover:not(:disabled) {
+  border-color: var(--color-accent-hover);
+}
+
+.loadMore:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
