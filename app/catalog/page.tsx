@@ -5,7 +5,8 @@ import {
 } from '@tanstack/react-query';
 import type { Metadata } from 'next';
 
-import { CARS_PER_PAGE, fetchCars } from '@/lib/api/cars';
+import { CARS_PER_PAGE, fetchCarFilters, fetchCars } from '@/lib/api/cars';
+import { emptyFilters } from '@/lib/store/filtersStore';
 
 import CatalogClient from './Catalog.client';
 
@@ -15,11 +16,21 @@ export const metadata: Metadata = {
     'Browse available rental cars, filter by brand, price and mileage.',
 };
 
+const PRICE_STEP = 10;
+
 export default async function CatalogPage() {
+  const filters = await fetchCarFilters();
+  const { min, max } = filters.price;
+
+  const prices: string[] = [];
+  for (let price = min; price <= max; price += PRICE_STEP) {
+    prices.push(String(price));
+  }
+
   const queryClient = new QueryClient();
 
   await queryClient.prefetchInfiniteQuery({
-    queryKey: ['cars'],
+    queryKey: ['cars', emptyFilters],
     queryFn: ({ pageParam }) =>
       fetchCars({ page: pageParam, perPage: CARS_PER_PAGE }),
     initialPageParam: 1,
@@ -27,7 +38,7 @@ export default async function CatalogPage() {
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <CatalogClient />
+      <CatalogClient brands={filters.brands} prices={prices} />
     </HydrationBoundary>
   );
 }

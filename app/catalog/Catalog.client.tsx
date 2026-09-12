@@ -3,16 +3,33 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 
 import CarList from '@/components/CarList/CarList';
+import Filters from '@/components/Filters/Filters';
 import { CARS_PER_PAGE, fetchCars } from '@/lib/api/cars';
+import { useFiltersStore } from '@/lib/store/filtersStore';
 
 import css from './Catalog.module.css';
 
-export default function CatalogClient() {
+interface CatalogClientProps {
+  brands: string[];
+  prices: string[];
+}
+
+export default function CatalogClient({ brands, prices }: CatalogClientProps) {
+  const applied = useFiltersStore(state => state.applied);
+  const { brand, price, minMileage, maxMileage } = applied;
+
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useInfiniteQuery({
-      queryKey: ['cars'],
+      queryKey: ['cars', applied],
       queryFn: ({ pageParam }) =>
-        fetchCars({ page: pageParam, perPage: CARS_PER_PAGE }),
+        fetchCars({
+          page: pageParam,
+          perPage: CARS_PER_PAGE,
+          brand: brand || undefined,
+          price: price ? Number(price) : undefined,
+          minMileage: minMileage ? Number(minMileage) : undefined,
+          maxMileage: maxMileage ? Number(maxMileage) : undefined,
+        }),
       initialPageParam: 1,
       getNextPageParam: lastPage =>
         lastPage.page < lastPage.totalPages ? lastPage.page + 1 : undefined,
@@ -23,6 +40,8 @@ export default function CatalogClient() {
   return (
     <main className={css.catalog}>
       <h1 className="visually-hidden">Car catalog</h1>
+
+      <Filters brands={brands} prices={prices} />
 
       <CarList cars={cars} />
 
