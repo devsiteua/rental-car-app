@@ -8,6 +8,8 @@
   --color-border-light: #f2f4f7;
   --color-accent: #00aad4;
   --color-accent-hover: #0095ba;
+  --color-error: #ec383b;
+  --color-error-bg: #ffdfdf;
 
   --radius-sm: 8px;
   --radius-md: 12px;
