@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { FiChevronDown, FiChevronUp } from 'react-icons/fi';
+import { LuChevronDown, LuChevronUp } from 'react-icons/lu';
 
 import css from './Select.module.css';
 
@@ -68,7 +68,7 @@ export default function Select({
         onClick={() => setIsOpen(!isOpen)}
       >
         {value ? formatValue(value) : placeholder}
-        {isOpen ? <FiChevronUp size={16} /> : <FiChevronDown size={16} />}
+        {isOpen ? <LuChevronUp size={16} /> : <LuChevronDown size={16} />}
       </button>
 
       {isOpen && (
