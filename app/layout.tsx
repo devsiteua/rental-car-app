@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Manrope } from 'next/font/google';
 import Header from '@/components/Header/Header';
 import TanStackProvider from '@/components/TanStackProvider/TanStackProvider';
+import { Toaster } from 'react-hot-toast';
 import './globals.css';
 
 const manrope = Manrope({
@@ -31,6 +32,7 @@ export default function RootLayout({
         <TanStackProvider>
           <Header />
           {children}
+          <Toaster />
         </TanStackProvider>
       </body>
     </html>

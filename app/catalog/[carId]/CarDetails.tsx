@@ -11,6 +11,7 @@ import {
 
 import { formatMileage } from '@/lib/formatMileage';
 import type { Car } from '@/types/car';
+import BookingForm from '@/components/BookingForm/BookingForm';
 
 import css from './CarDetails.module.css';
 
@@ -20,6 +21,7 @@ interface CarDetailsProps {
 
 export default function CarDetails({ car }: CarDetailsProps) {
   const {
+    id,
     brand,
     model,
     year,
@@ -49,6 +51,7 @@ export default function CarDetails({ car }: CarDetailsProps) {
             className={css.image}
           />
         </div>
+        <BookingForm carId={id} />
       </div>
 
       <div className={css.card}>
