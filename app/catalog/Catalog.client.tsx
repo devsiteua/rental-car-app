@@ -26,8 +26,8 @@ export default function CatalogClient({ brands, prices }: CatalogClientProps) {
     data,
     fetchNextPage,
     hasNextPage,
-    isFetching,
     isFetchingNextPage,
+    isPlaceholderData,
     isError,
     refetch,
   } = useInfiniteQuery({
@@ -45,10 +45,11 @@ export default function CatalogClient({ brands, prices }: CatalogClientProps) {
     getNextPageParam: lastPage =>
       lastPage.page < lastPage.totalPages ? lastPage.page + 1 : undefined,
     placeholderData: keepPreviousData,
+    refetchOnMount: false,
   });
 
   const cars = data?.pages.flatMap(page => page.cars) ?? [];
-  const isLoading = isFetching && !isFetchingNextPage;
+  const isLoading = isPlaceholderData;
   const isEmpty = !isLoading && cars.length === 0;
 
   return (
