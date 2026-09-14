@@ -60,6 +60,7 @@ export default function CarCard({ car }: CarCardProps) {
         href={`/catalog/${id}`}
         target="_blank"
         rel="noopener noreferrer"
+        aria-label={`Read more about ${brand} ${model}`}
       >
         Read more
       </Link>
